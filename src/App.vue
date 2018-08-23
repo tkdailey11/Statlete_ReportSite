@@ -1,0 +1,28 @@
+<template>
+  <div id="app">
+    <router-link :to="{ name: 'Team' }" style="padding: 0 15px 0 0;">Team</router-link>
+    <router-link to="/brandon" style="padding: 0 15px 0 0;">Brandon</router-link>
+    <router-link to="/joe" style="padding: 0 15px 0 0;">Joe</router-link>
+    <router-link to="/nate" style="padding: 0 15px 0 0;">Nate</router-link>
+    <router-link to="/taylor" style="padding: 0 15px 0 0;">Taylor</router-link>
+    <router-link to="/tyler" style="padding: 0 15px 0 0;">Tyler</router-link>
+    <router-view/>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App'
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
