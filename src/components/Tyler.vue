@@ -32,7 +32,9 @@
 <script>
 import PDF from '@/components/PDF'
 import firebase from 'firebase'
-
+import axios from 'axios'
+const Fs = require('fs')
+const Path = require('path')
 
 export default {
   name: 'Tyler',
@@ -49,7 +51,25 @@ export default {
       this.$modal.show(file.name);
     },
     downloadFile(file) {
-      this.$modal.show(file.name);
+      alert('TEST')
+      var storageRef = firebase.storage().ref();
+      alert('TEST2')
+      storageRef.child('/Tyler/' + file.name).getDownloadURL().then(function(url) {
+        const response = axios.get(url)
+        const path = Path.resolve(__dirname, file.name)
+        response.pipe(Fs.createWriteStream(path))
+        alert('TEST3')
+        return new Promise((resolve, reject) => {
+          response.data.on('end', () => {
+            resolve()
+          })
+
+          response.data.on('error', () => {
+            reject()
+          })
+        })
+      })
+
     }
   },
   created() {
