@@ -1,6 +1,9 @@
 <template>
   <div class="team">
+    <br>
     <h1>Statlete</h1>
+    <br>
+    <hr>
   </div>
 </template>
 

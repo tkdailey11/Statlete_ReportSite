@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-ML9h/UCooefre72ZPxxOHyjbrLT1xKV0AHON1J+OlOV2iwcYemqmWyMfTcfyzLJ1" crossorigin="anonymous">
     <router-link :to="{ name: 'Team' }" style="padding: 0 15px 0 0;">Team</router-link>
     <router-link to="/brandon" style="padding: 0 15px 0 0;">Brandon</router-link>
     <router-link to="/joe" style="padding: 0 15px 0 0;">Joe</router-link>
@@ -24,5 +25,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+button {
+  padding: 5px 20px 5px 20px;
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
   <div class="joe">
+    <br>
     <h1>Joe Pugliano</h1>
+    <br>
     <hr>
     <table>
       <tr>
@@ -10,8 +12,8 @@
       </tr>
       <tr v-for="file in fileURLs">
         <td>{{file.name}}</td>
-        <td><button type="button" @click="viewFile(file)">View</button></td>
-        <td><button type="button" @click="downloadFile(file)">Download</button></td>
+        <td><button type="button" @click="viewFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">View</button></td>
+        <td><button type="button" @click="downloadFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">Download</button></td>
       </tr>
     </table>
 
@@ -99,5 +101,9 @@ a {
 td
 {
     padding:5px 15px 10px 15px;
+}
+.mybutton {
+  border: none;
+  border-radius: 12px;
 }
 </style>
