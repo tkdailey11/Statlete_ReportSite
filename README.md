@@ -12,6 +12,8 @@
 
 If you refresh the website it should update automatically.
 
+<b>NOTE:</b>I will leave one entry with the key "file1" and a sample value file, I will just ignore these in the code eventually so you are safe to leave them to use as an example.
+
 ## Build Setup
 
 ``` bash
