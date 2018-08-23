@@ -12,7 +12,7 @@
 
 If you refresh the website it should update automatically.
 
-<b>NOTE:</b>I will leave one entry with the key "file1" and a sample value file, I will just ignore these in the code eventually so you are safe to leave them to use as an example.
+<b>NOTE:</b> I will leave one entry with the key "file1" and a sample value file, I will just ignore these in the code eventually so you are safe to leave them to use as an example.
 
 ## Build Setup
 
@@ -31,3 +31,9 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+to deploy an updated version run the following:
+
+$ npm run build
+$ firebase deploy
