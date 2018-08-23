@@ -2,6 +2,16 @@
 
 > Statlete Reports Page
 
+## Adding a new file:
+1)  Go to the statlete-reports-website firebase console at: https://console.firebase.google.com/u/0/project/statlete-reports-website/overview <br>
+2)  navigate to the "Storage" tab<br>
+3)  click on your name<br>
+4)  then the "Upload file" button.<br>
+
+5)  After uploading your file go to the Realtime Database and add an entry under your name. The key for this entry doesn't matter (it is ignored) other than it has to be unique. The value MUST be the same filename as the one you uploaded.
+
+If you refresh the website it should update automatically.
+
 ## Build Setup
 
 ``` bash
