@@ -13,6 +13,8 @@ Vue.config.productionTip = false
 import VModal from 'vue-js-modal'
 Vue.use(VModal)
 
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
 
 /* eslint-disable no-new */
 new Vue({

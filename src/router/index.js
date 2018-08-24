@@ -6,6 +6,7 @@ import Joe from '@/components/Joe'
 import Nate from '@/components/Nate'
 import Taylor from '@/components/Taylor'
 import Tyler from '@/components/Tyler'
+import Upload from '@/components/Upload'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/tyler',
       name: 'Tyler',
       component: Tyler
+    },
+    {
+      path: '/upload',
+      name: 'Upload',
+      component: Upload
     }
   ]
 })
