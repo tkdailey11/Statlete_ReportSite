@@ -6,11 +6,13 @@
     <hr>
     <table>
       <tr>
+        <th>Date</th>
         <th>File Name</th>
         <th>View</th>
         <th>Download</th>
       </tr>
       <tr v-for="file in fileURLs">
+        <td>{{file.date}}</td>
         <td>{{file.name}}</td>
         <td><button type="button" @click="viewFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">View</button></td>
         <td><button type="button" @click="downloadFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">Download</button></td>
@@ -33,7 +35,7 @@
 <script>
 import PDF from '@/components/PDF'
 import firebase from 'firebase'
-
+import axios from 'axios'
 
 export default {
   name: 'Joe',
@@ -50,7 +52,28 @@ export default {
       this.$modal.show(file.name);
     },
     downloadFile(file) {
-      this.$modal.show(file.name);
+      var storageRef = firebase.storage().ref();
+      storageRef.child('/Joe/' + file.name).getDownloadURL().then(function(url) {
+        axios({
+          url: url,
+          method: 'GET',
+          responseType: 'blob'
+        }).then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', file.name);
+          document.body.appendChild(link);
+          link.click();
+        })
+      })
+    },
+    parseDateString(date) {
+      var year = date.substring(0, 4);
+      var month = date.substring(5, 7);
+      var day = date.substring(8, date.indexOf('T'))
+
+      return month + '/' + day + '/' + year;
     }
   },
   created() {
@@ -70,9 +93,11 @@ export default {
 
         joeRef.getMetadata().then(function(metadata) {
           joeRef.getDownloadURL().then(function(url) {
+            var date = self.parseDateString(metadata.updated);
             self.fileURLs.push({
               name: metadata.name,
-              path: url
+              path: url,
+              date: date
             })
           })
         })
