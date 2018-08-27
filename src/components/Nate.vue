@@ -71,7 +71,10 @@ export default {
     parseDateString(date) {
       var year = date.substring(0, 4);
       var month = date.substring(5, 7);
-      var day = date.substring(8, date.indexOf('T'))
+      var day = parseInt(date.substring(8, date.indexOf('T'))) - 1
+      if(day < 1){
+        day = 1
+      }
 
       return month + '/' + day + '/' + year;
     }
