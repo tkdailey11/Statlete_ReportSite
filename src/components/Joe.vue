@@ -27,6 +27,7 @@
                                      :scrollable="true"
                                      :adaptive="true"
                                      style="padding: 50px 0px 50px 0px;">
+                                     :resizable="true">
       <PDF :filepath="file.path"></PDF>
     </modal>
   </div>

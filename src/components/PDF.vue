@@ -4,8 +4,7 @@
           v-for="i in numPages"
           :key="i"
           :src="src"
-          :page="i"
-          style="display: inline-block;">
+          :page="i">
     </pdf>
   </div>
 </template>
