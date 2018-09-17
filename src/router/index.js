@@ -7,6 +7,12 @@ import Nate from '@/components/Nate'
 import Taylor from '@/components/Taylor'
 import Tyler from '@/components/Tyler'
 import Upload from '@/components/Upload'
+import TylerUpload from '@/components/TylerUpload'
+import TylerNew from '@/components/TylerNew'
+import TaylorUpload from '@/components/TaylorUpload'
+import TaylorNew from '@/components/TaylorNew'
+import NateUpload from '@/components/NateUpload'
+import NateNew from '@/components/NateNew'
 
 Vue.use(Router)
 
@@ -46,6 +52,36 @@ export default new Router({
       path: '/upload',
       name: 'Upload',
       component: Upload
+    },
+    {
+      path: '/tylerupload',
+      name: 'TylerUpload',
+      component: TylerUpload
+    },
+    {
+      path: '/tyler1',
+      name: 'TylerNew',
+      component: TylerNew
+    },
+    {
+      path: '/taylorupload',
+      name: 'TaylorUpload',
+      component: TaylorUpload
+    },
+    {
+      path: '/taylor1',
+      name: 'TaylorNew',
+      component: TaylorNew
+    },
+    {
+      path: '/nateupload',
+      name: 'NateUpload',
+      component: NateUpload
+    },
+    {
+      path: '/nate1',
+      name: 'NateNew',
+      component: NateNew
     }
   ]
 })

@@ -16,6 +16,9 @@ Vue.use(VModal)
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 
+import jQuery from 'jquery'
+global.jQuery = jQuery
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

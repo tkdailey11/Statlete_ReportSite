@@ -4,19 +4,25 @@
     <h1>Statlete</h1>
     <br>
     <hr>
-    <table>
-      <tr>
-        <th>Date</th>
-        <th>File Name</th>
-        <th>View</th>
-        <th>Download</th>
-      </tr>
-      <tr v-for="file in fileURLs">
-        <td>{{file.date}}</td>
-        <td>{{file.name}}</td>
-        <td><button type="button" @click="viewFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">View</button></td>
-        <td><button type="button" @click="downloadFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">Download</button></td>
-      </tr>
+    <button type="button" @click="sortAsc()" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px; margin-bottom: 50px;">Sort Ascending</button>
+    <button type="button" @click="sortDesc()" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px; margin-bottom: 50px;">Sort Descending</button>    
+    <table id="results">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>File Name</th>
+          <th>View</th>
+          <th>Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="file in fileURLs" :key="'row-'+file.name">
+          <td>{{file.date}}</td>
+          <td>{{file.name}}</td>
+          <td><button type="button" @click="viewFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">View</button></td>
+          <td><button type="button" @click="downloadFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">Download</button></td>
+        </tr>
+      </tbody>
     </table>
     <hr>
 
@@ -25,7 +31,8 @@
                                      :height="'auto'"
                                      :scrollable="true"
                                      :adaptive="true"
-                                     style="padding: 50px 0px 50px 0px;">
+                                     style="padding: 50px 0px 50px 0px;"
+                                     :key="'file-' + file.name">
       <PDF :filepath="file.path"></PDF>
     </modal>
   </div>
@@ -76,6 +83,65 @@ export default {
       }
 
       return month + '/' + day + '/' + year;
+    },
+    convertDate(d) {
+      var p = d.split("/");
+      if(p[1].length == 1){
+        p[1] = '0' + p[1];
+      }
+      return (p[2]+p[0]+p[1]);
+    },
+    sortByDate() {
+      var tbody = document.querySelector("#results tbody");
+      // get trs as array for ease of use
+      var rows = [].slice.call(tbody.querySelectorAll("tr"));
+      var self = this;
+      rows.sort(function(a,b) {
+        return self.convertDate(a.cells[0].innerHTML) - self.convertDate(b.cells[0].innerHTML);
+      });
+      
+      rows.forEach(function(v) {
+        tbody.appendChild(v); // note that .appendChild() *moves* elements
+      });
+    },
+    sortByName() {
+      var tbody = document.querySelector("#results tbody");
+      // get trs as array for ease of use
+      var rows = [].slice.call(tbody.querySelectorAll("tr"));
+      var self = this;
+      rows.sort(function(a,b) {
+        return a.cells[1].innerHTML > b.cells[1].innerHTML ? 1 : -1;
+      });
+      
+      rows.forEach(function(v) {
+        tbody.appendChild(v); // note that .appendChild() *moves* elements
+      });
+    },
+    sortAsc() {
+            var tbody = document.querySelector("#results tbody");
+      // get trs as array for ease of use
+      var rows = [].slice.call(tbody.querySelectorAll("tr"));
+      var self = this;
+      rows.sort(function(a,b) {
+        return a.cells[1].innerHTML > b.cells[1].innerHTML ? 1 : -1;
+      });
+      
+      rows.forEach(function(v) {
+        tbody.appendChild(v); // note that .appendChild() *moves* elements
+      });
+    },
+    sortDesc() {
+            var tbody = document.querySelector("#results tbody");
+      // get trs as array for ease of use
+      var rows = [].slice.call(tbody.querySelectorAll("tr"));
+      var self = this;
+      rows.sort(function(a,b) {
+        return a.cells[1].innerHTML < b.cells[1].innerHTML ? 1 : -1;
+      });
+      
+      rows.forEach(function(v) {
+        tbody.appendChild(v); // note that .appendChild() *moves* elements
+      });
     }
   },
   created() {
@@ -104,7 +170,9 @@ export default {
           })
         })
       })
-    });
+    })
+  },
+  mounted() {
   }
 }
 </script>
