@@ -5,16 +5,18 @@
     <br>
     <hr>
     <table style="margin-left: 5vw;">
-        <tbody v-for="key in Object.keys(entries)">
+        <tbody v-for="key in Object.keys(entries)" :key="'tb-' + getRandom(key)">
             <tr>
                 <td><h4>{{key}}</h4></td>
             </tr>
-            <tr v-for="entry in entries[key]">
+            <tr v-for="entry in entries[key]" :key="'entry-' + getRandom(entry)">
                 <td align="right">-</td>
                 <td align="left">{{entry}}</td>
             </tr>
       </tbody>
     </table>
+    <br>
+    <br>
   </div>
 </template>
 
@@ -34,7 +36,10 @@ export default {
         PDF
     },
     methods: {
-
+        getRandom(entry){
+            //I am passing in entry here to ignore a warning above, it isn't used
+            return Math.random().toString(36).substring(2,7);
+        }
     },
     created() {
         var self = this;

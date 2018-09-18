@@ -1,7 +1,7 @@
 <template>
-  <div class="tyler">
+  <div class="brandon">
     <br>
-    <h1>Tyler Dailey</h1>
+    <h1>Brandon Sehestedt</h1>
     <br>
     <hr>
     <table style="margin-left: 5vw;">
@@ -26,7 +26,7 @@ import firebase from 'firebase'
 import axios from 'axios'
 
 export default {
-    name: 'Tyler',
+    name: 'Brandon',
     data () {
         return {
         entries: []
@@ -43,7 +43,7 @@ export default {
     },
     created() {
         var self = this;
-        firebase.database().ref('/Tyler/entries').on('value', function(snapshot){
+        firebase.database().ref('/Brandon/entries').on('value', function(snapshot){
             if(snapshot.val() != null){
                 self.entries = snapshot.val()
             }

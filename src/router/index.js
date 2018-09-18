@@ -13,6 +13,10 @@ import TaylorUpload from '@/components/TaylorUpload'
 import TaylorNew from '@/components/TaylorNew'
 import NateUpload from '@/components/NateUpload'
 import NateNew from '@/components/NateNew'
+import JoeUpload from '@/components/JoeUpload'
+import JoeNew from '@/components/JoeNew'
+import BrandonUpload from '@/components/BrandonUpload'
+import BrandonNew from '@/components/BrandonNew'
 
 Vue.use(Router)
 
@@ -82,6 +86,26 @@ export default new Router({
       path: '/nate1',
       name: 'NateNew',
       component: NateNew
+    },
+    {
+      path: '/joeupload',
+      name: 'JoeUpload',
+      component: JoeUpload
+    },
+    {
+      path: '/joe1',
+      name: 'JoeNew',
+      component: JoeNew
+    },
+    {
+      path: '/brandonupload',
+      name: 'BrandonUpload',
+      component: BrandonUpload
+    },
+    {
+      path: '/brandon1',
+      name: 'BrandonNew',
+      component: BrandonNew
     }
   ]
 })
