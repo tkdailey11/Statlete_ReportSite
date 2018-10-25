@@ -17,6 +17,7 @@ import JoeUpload from '@/components/JoeUpload'
 import JoeNew from '@/components/JoeNew'
 import BrandonUpload from '@/components/BrandonUpload'
 import BrandonNew from '@/components/BrandonNew'
+import Features from '@/components/Features'
 
 Vue.use(Router)
 
@@ -106,6 +107,11 @@ export default new Router({
       path: '/brandon1',
       name: 'BrandonNew',
       component: BrandonNew
+    },
+    {
+      path: '/features',
+      name: 'Features',
+      component: Features
     }
   ]
 })

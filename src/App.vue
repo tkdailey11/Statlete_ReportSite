@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-ML9h/UCooefre72ZPxxOHyjbrLT1xKV0AHON1J+OlOV2iwcYemqmWyMfTcfyzLJ1" crossorigin="anonymous">
-    <router-link :to="{ name: 'Team' }" style="padding: 0 15px 0 0;">Team</router-link>
+    <router-link :to="{ name: 'Team' }" style="padding: 0 15px 0 0;">Team WMRs</router-link>
+    <router-link to="/features" style="padding: 0 15px 0 0;">Features</router-link>
     <router-link to="/brandon1" style="padding: 0 15px 0 0;">Brandon</router-link>
     <router-link to="/joe1" style="padding: 0 15px 0 0;">Joe</router-link>
     <router-link to="/nate1" style="padding: 0 15px 0 0;">Nate</router-link>

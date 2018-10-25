@@ -42,13 +42,13 @@ export default {
         var storage = firebase.storage();
 
         var file = document.getElementById("selectedFiles").files[0];
-          console.log(file);
 
         var storageRef = firebase.storage().ref();
 
         //dynamically set reference to the file name
         var thisRef = storageRef.child('/' + this.selected + '/' + file.name);
         var self = this;
+      
         //put request upload file to firebase storage
         thisRef.put(file).then(function(snapshot) {
           var uuid = new Date();
