@@ -17,10 +17,11 @@
       </thead>
       <tbody>
         <tr v-for="file in fileURLs" :key="'row-'+file.name">
-          <td>{{file.date}}</td>
+          <td v-if="file.name==='Timeline.pdf'" style="color: white;">Timeline</td>
+          <td v-else>{{file.date}}</td>
           <td>{{file.name}}</td>
-          <td><button type="button" @click="viewFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">View</button></td>
-          <td><button type="button" @click="downloadFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">Download</button></td>
+          <td><button v-if="file.name != 'FALL BREAK'" type="button" @click="viewFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">View</button></td>
+          <td><button v-if="file.name != 'FALL BREAK'" type="button" @click="downloadFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">Download</button></td>
         </tr>
       </tbody>
     </table>
@@ -47,7 +48,8 @@ export default {
   name: 'Team',
   data () {
     return {
-      fileURLs: []
+      fileURLs: [],
+      weekDates: {}
     }
   },
   components: {
@@ -118,12 +120,14 @@ export default {
       });
     },
     sortAsc() {
-            var tbody = document.querySelector("#results tbody");
+      var tbody = document.querySelector("#results tbody");
       // get trs as array for ease of use
       var rows = [].slice.call(tbody.querySelectorAll("tr"));
       var self = this;
       rows.sort(function(a,b) {
-        return a.cells[1].innerHTML > b.cells[1].innerHTML ? 1 : -1;
+        if(a.cells[0].innerHTML && b.cells[0].innerHTML){
+          return self.getWeekKey(a.cells[0].innerHTML) > self.getWeekKey(b.cells[0].innerHTML) ? 1 : -1;
+        }
       });
       
       rows.forEach(function(v) {
@@ -131,45 +135,89 @@ export default {
       });
     },
     sortDesc() {
-            var tbody = document.querySelector("#results tbody");
+      var tbody = document.querySelector("#results tbody");
       // get trs as array for ease of use
       var rows = [].slice.call(tbody.querySelectorAll("tr"));
       var self = this;
       rows.sort(function(a,b) {
-        return a.cells[1].innerHTML < b.cells[1].innerHTML ? 1 : -1;
+        if(a.cells[0].innerHTML && b.cells[0].innerHTML){
+          return self.getWeekKey(a.cells[0].innerHTML) > self.getWeekKey(b.cells[0].innerHTML) ? 1 : -1;
+        }
       });
-      
+      rows.reverse();
       rows.forEach(function(v) {
         tbody.appendChild(v); // note that .appendChild() *moves* elements
       });
+    },
+    getWeekFromName(name){
+      if(name === 'FALL BREAK'){
+        return 'Week 08'
+      }
+      if(name === 'Timeline.pdf'){
+        return 'Week 00'
+      }
+      var result = name.split('-')[1].split('.')[0]
+      var resultArr = result.split(' ')
+      var intVal = parseInt(resultArr[1])
+      if(intVal < 10){
+        resultArr[1] = '0' + intVal
+      }
+      return 'Week ' + resultArr[1]
+    },
+    getWeekKey(week){
+      var obj = this.weekDates
+      return Object.keys(obj).find(key => obj[key] === week);
     }
   },
   created() {
     var filenameArr = [];
 
     var self = this;
+    firebase.database().ref('/WeekDates').once('value', function(snapshot) {
+      self.weekDates = snapshot.val()
 
-    firebase.database().ref('/Team').once('value').then(function(snapshot){
-      filenameArr.push(Object.values(snapshot.val()));
+      firebase.database().ref('/Team').once('value').then(function(snap){
+      filenameArr.push(Object.values(snap.val()));
       filenameArr = filenameArr[0];
 
       var storageTest = firebase.storage();
       var storageRef = storageTest.ref();
 
       filenameArr.forEach(function(element, index){
-        var tylerRef = storageRef.child('Team').child(element);
+        if(element != "FALL BREAK"){
+          var tylerRef = storageRef.child('Team').child(element);
 
-        tylerRef.getMetadata().then(function(metadata) {
-          tylerRef.getDownloadURL().then(function(url) {
-            var date = self.parseDateString(metadata.updated);
-            self.fileURLs.push({
-              name: metadata.name,
-              path: url,
-              date: date
+          tylerRef.getMetadata().then(function(metadata) {
+            tylerRef.getDownloadURL().then(function(url) {
+              var date = self.weekDates['Week 00']
+              if(metadata.name === 'Timeline.pdf'){
+                self.fileURLs.push({
+                  name: metadata.name,
+                  path: url,
+                  date: date
+                })
+              }
+              else{
+                var dateKey = self.getWeekFromName(metadata.name)
+                var date = self.weekDates[dateKey]
+                self.fileURLs.push({
+                  name: metadata.name,
+                  path: url,
+                  date: date
+                })
+              }
             })
           })
-        })
+        }
+        else{
+          self.fileURLs.push({
+            name: 'FALL BREAK',
+            path: 'tmp',
+            date: self.weekDates['Week 08']
+          })
+        }
       })
+    })
     })
   },
   mounted() {

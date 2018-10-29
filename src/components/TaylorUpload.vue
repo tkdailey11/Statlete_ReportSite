@@ -6,7 +6,7 @@
     <hr>
     <label>Week:</label>
     <select id="weekSelector" @change="selectionChanged()" style="border: 1px solid black;">
-        <option v-for="i in 16" value="i" :key="'value-' + i">{{i}}</option>
+        <option v-for="i in Object.values(weekDates)" value="i" :key="'value-' + i">{{i}}</option>
     </select>
     <br>
     <table align="center" id="results">
@@ -45,7 +45,8 @@ export default {
     return {
       fileURLs: [],
       numRows: 1,
-      entriesList: []
+      entriesList: [],
+      weekDates: {}
     }
   },
   components: {
@@ -80,7 +81,7 @@ export default {
       },
       selectionChanged() {
             var week = jQuery('#weekSelector :selected').text();
-            week = "Week " + week
+            week = this.getWeekKey(week)
             var self = this;
             firebase.database().ref('/Taylor/entries').child(week).once('value', function(snapshot){
                 if(snapshot.val() == null){
@@ -90,17 +91,25 @@ export default {
                     self.entriesList = snapshot.val();
                 }
             })
+      },
+      getWeekKey(week){
+        var obj = this.weekDates
+        return Object.keys(obj).find(key => obj[key] === week);
       }
   },
   created() {
     var self = this;
-    firebase.database().ref('/Taylor/entries/Week 1').once('value', function(snapshot){
+    firebase.database().ref('/Taylor/entries/Week 01').once('value', function(snapshot){
         if(snapshot.val() == null){
             self.entriesList = []
         }
         else{
             self.entriesList = snapshot.val();
         }
+    })
+    firebase.database().ref('/WeekDates').once('value', function(snapshot) {
+        self.weekDates = snapshot.val()
+        delete self.weekDates['Week 00']
     })
   }
 }

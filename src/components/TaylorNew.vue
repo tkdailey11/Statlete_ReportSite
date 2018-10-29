@@ -4,14 +4,17 @@
     <h1>Taylor Dejonge</h1>
     <br>
     <hr>
-    <table style="margin-left: 5vw;">
+    <table style="margin-left: 5vw; margin-right: 5vw;">
         <tbody v-for="key in Object.keys(entries)" :key="'tb-' + getRandom(key)">
             <tr>
-                <td><h4>{{key}}</h4></td>
+                <td colspan="2" align="left"><h4>{{weekDates[key]}}</h4></td>
             </tr>
             <tr v-for="entry in entries[key]" :key="'entry-' + getRandom(entry)">
                 <td align="right">-</td>
                 <td align="left">{{entry}}</td>
+            </tr>
+            <tr style="color: white;">
+                <td>hidden</td>
             </tr>
       </tbody>
     </table>
@@ -29,7 +32,8 @@ export default {
     name: 'Taylor',
     data () {
         return {
-        entries: []
+            entries: [],
+            weekDates: {}
         }
     },
     components: {
@@ -50,6 +54,10 @@ export default {
             else{
                 self.entries = []
             }
+        })
+
+         firebase.database().ref('/WeekDates').once('value', function(snapshot) {
+            self.weekDates = snapshot.val()
         })
     }
 }

@@ -16,6 +16,11 @@ Vue.use(VModal)
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 
+import VuejsDialog from "vuejs-dialog"
+// include the default style
+import 'vuejs-dialog/dist/vuejs-dialog.min.css'
+Vue.use(VuejsDialog)
+
 import jQuery from 'jquery'
 global.jQuery = jQuery
 
