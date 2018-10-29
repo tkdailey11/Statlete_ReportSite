@@ -1,11 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Team from '@/components/Team'
-import Brandon from '@/components/Brandon'
-import Joe from '@/components/Joe'
-import Nate from '@/components/Nate'
-import Taylor from '@/components/Taylor'
-import Tyler from '@/components/Tyler'
 import Upload from '@/components/Upload'
 import TylerUpload from '@/components/TylerUpload'
 import TylerNew from '@/components/TylerNew'
@@ -29,31 +24,6 @@ export default new Router({
       component: Team
     },
     {
-      path: '/brandon',
-      name: 'Brandon',
-      component: Brandon
-    },
-    {
-      path: '/joe',
-      name: 'Joe',
-      component: Joe
-    },
-    {
-      path: '/nate',
-      name: 'Nate',
-      component: Nate
-    },
-    {
-      path: '/taylor',
-      name: 'Taylor',
-      component: Taylor
-    },
-    {
-      path: '/tyler',
-      name: 'Tyler',
-      component: Tyler
-    },
-    {
       path: '/upload',
       name: 'Upload',
       component: Upload
@@ -64,7 +34,7 @@ export default new Router({
       component: TylerUpload
     },
     {
-      path: '/tyler1',
+      path: '/tyler',
       name: 'TylerNew',
       component: TylerNew
     },
@@ -74,7 +44,7 @@ export default new Router({
       component: TaylorUpload
     },
     {
-      path: '/taylor1',
+      path: '/taylor',
       name: 'TaylorNew',
       component: TaylorNew
     },
@@ -84,7 +54,7 @@ export default new Router({
       component: NateUpload
     },
     {
-      path: '/nate1',
+      path: '/nate',
       name: 'NateNew',
       component: NateNew
     },
@@ -94,7 +64,7 @@ export default new Router({
       component: JoeUpload
     },
     {
-      path: '/joe1',
+      path: '/joe',
       name: 'JoeNew',
       component: JoeNew
     },
@@ -104,7 +74,7 @@ export default new Router({
       component: BrandonUpload
     },
     {
-      path: '/brandon1',
+      path: '/brandon',
       name: 'BrandonNew',
       component: BrandonNew
     },
