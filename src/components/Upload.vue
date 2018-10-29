@@ -10,7 +10,7 @@
     </label>
     <br>
     <v-select v-model="selected"
-              :options="['Brandon','Joe','Nate','Taylor','Tyler','Team']"
+              :options="['Team']"
               style="margin: 50px 300px 50px 300px;"></v-select>
     <button type="button" @click="uploadFile" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">Upload</button>
 
@@ -47,18 +47,35 @@ export default {
 
         //dynamically set reference to the file name
         var thisRef = storageRef.child('/' + this.selected + '/' + file.name);
-        var self = this;
-      
-        //put request upload file to firebase storage
-        thisRef.put(file).then(function(snapshot) {
-          var uuid = new Date();
-          var uuidStr = 'file-' + uuid.getTime();
-          firebase.database().ref(self.selected).update({
-            [uuidStr] : file.name
-          }).then(function(){
-            alert('Upload Success!')
+        if(thisRef.getDownloadURL){
+          var message = "That file already exists, do you want to replace it?"
+          var options = {
+            okText: 'YES',
+            cancelText: 'NO',
+            animation: 'bounce'
+          }
+          var self = this;
+          self.$dialog.confirm(message, options).then(function(){
+            thisRef.put(file).then(function(){
+              alert('Upload Success!')
+            })
           })
-        });
+
+        }
+        else{
+          var self = this;
+      
+          //put request upload file to firebase storage
+          thisRef.put(file).then(function(snapshot) {
+            var uuid = new Date();
+            var uuidStr = 'file-' + uuid.getTime();
+            firebase.database().ref(self.selected).update({
+              [uuidStr] : file.name
+            }).then(function(){
+              alert('Upload Success!')
+            })
+          });
+        }
       }
     }
   }

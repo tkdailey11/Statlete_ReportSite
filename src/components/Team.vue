@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <tr v-for="file in fileURLs" :key="'row-'+file.name">
-          <td v-if="file.name==='Timeline.pdf'" style="color: white;">Timeline</td>
+          <td v-if="file.name==='Timeline.pdf'" style="color: white;">{{weekDates['Week 00']}}</td>
           <td v-else>{{file.date}}</td>
           <td>{{file.name}}</td>
           <td><button v-if="file.name != 'FALL BREAK'" type="button" @click="viewFile(file)" class="btn btn-primary mybutton" style="padding: 5px 20px 5px 20px;">View</button></td>
