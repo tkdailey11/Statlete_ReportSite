@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       fileURLs: [],
-      selected: 'none'
+      selected: 'Team'
     }
   },
   methods: {
